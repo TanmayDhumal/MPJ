@@ -1,63 +1,76 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 
-/**
- *
- * @author tanmaydhumal
- */
+import java.util.Scanner;
+
 class Employee {
-
+    String name;
     double salary;
 
-    Employee(double salary) {
-        this.salary = salary;
-    }
-
     void displaySalary() {
+        System.out.println("Employee Name: " + name);
         System.out.println("Salary before hike: " + salary);
     }
 }
 
-
 class FullTimeEmployee extends Employee {
 
-    FullTimeEmployee(double salary) {
-        super(salary);
-    }
-
     void calculateSalary() {
-        double hike = salary * 0.50;
-        salary = salary + hike;
+        salary = salary + (salary * 0.50);
         System.out.println("Salary after 50% hike: " + salary);
     }
 }
 
 class InternEmployee extends Employee {
 
-    InternEmployee(double salary) {
-        super(salary);
-    }
-
     void calculateSalary() {
-        double hike = salary * 0.25;
-        salary = salary + hike;
+        salary = salary + (salary * 0.25);
         System.out.println("Salary after 25% hike: " + salary);
     }
 }
 
 public class Assignment2 {
+
     public static void main(String[] args) {
 
-        FullTimeEmployee f1 = new FullTimeEmployee(40000);
-        f1.displaySalary();
-        f1.calculateSalary();
+        Scanner sc = new Scanner(System.in);
+        int choice;
 
-        System.out.println();
+        do {
+            System.out.print("Enter Employee Name: ");
+            String name = sc.next();
 
-        InternEmployee i1 = new InternEmployee(20000);
-        i1.displaySalary();
-        i1.calculateSalary();
+            System.out.print("Enter Salary: ");
+            double salary = sc.nextDouble();
+
+            System.out.println("1. Full Time Employee");
+            System.out.println("2. Intern Employee");
+            System.out.print("Enter choice: ");
+            int type = sc.nextInt();
+
+            System.out.println();
+
+            if (type == 1) {
+                FullTimeEmployee f = new FullTimeEmployee();
+                f.name = name;
+                f.salary = salary;
+                f.displaySalary();
+                f.calculateSalary();
+            } else if (type == 2) {
+                InternEmployee i = new InternEmployee();
+                i.name = name;
+                i.salary = salary;
+                i.displaySalary();
+                i.calculateSalary();
+            } else {
+                System.out.println("Invalid choice");
+            }
+
+            System.out.println();
+            System.out.print("Enter 1 to continue, 0 to stop: ");
+            choice = sc.nextInt();
+            System.out.println();
+
+        } while (choice == 1);
+
+        sc.close();
     }
 }
