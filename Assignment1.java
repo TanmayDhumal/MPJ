@@ -1,35 +1,85 @@
-class Student {
 
-    // Instance variables
-    int id;
-    String name;
-    int age;
+
+import java.util.Scanner;
+
+class Student {
+    private String name;
+    private int rollNo;
+    private int m1, m2, m3, m4, m5;
+    private float average;
+    private char grade;
 
     // Constructor
-    Student(int id, String name, int age) {
-        this.id = id;
+    public Student(String name, int rollNo, int m1, int m2, int m3, int m4, int m5) {
         this.name = name;
-        this.age = age;
+        this.rollNo = rollNo;
+        this.m1 = m1;
+        this.m2 = m2;
+        this.m3 = m3;
+        this.m4 = m4;
+        this.m5 = m5;
     }
 
-    // Method to display student details
-    void displayInfo() {
-        System.out.println("Student ID: " + id);
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
-        
+    // Method Calculate avg and grade
+    public void calculateResult() {
+        average = (m1 + m2 + m3 + m4 + m5) / 5.0f;
+
+        if (average >= 75)
+            grade = 'A';
+        else if (average >= 60)
+            grade = 'B';
+        else
+            grade = 'C';
+    }
+
+    // Display result
+    public void display() {
+        System.out.println("\nName    : " + name);
+        System.out.println("Roll No : " + rollNo);
+        System.out.println("Average : " + average);
+        System.out.println("Grade   : " + grade);
     }
 }
 
 public class Assignment1 {
+
     public static void main(String[] args) {
 
-        // Object creation
-        Student s1 = new Student(02, "Tanmay", 20);
-        Student s2 = new Student(05, "Lakshya", 20);
+        Scanner sc = new Scanner(System.in);
 
-        // Calling methods
-        s1.displayInfo();
-        s2.displayInfo();
+        System.out.print("Enter number of students: ");
+        int n = sc.nextInt();
+
+        Student[] students = new Student[n];
+
+        for (int i = 0; i < n; i++) {
+
+            System.out.println("\nEnter details for Student " + (i + 1));
+
+            System.out.print("Name: ");
+            sc.nextLine(); // clear buffer
+            String name = sc.nextLine();
+
+            System.out.print("Roll No: ");
+            int rollNo = sc.nextInt();
+
+            System.out.print("Enter 5 marks:\n ");
+            int m1 = sc.nextInt();
+            int m2 = sc.nextInt();
+            int m3 = sc.nextInt();
+            int m4 = sc.nextInt();
+            int m5 = sc.nextInt();
+
+            students[i] = new Student(name, rollNo, m1, m2, m3, m4, m5);
+            students[i].calculateResult();
+        }
+
+        System.out.println("\n Student Results");
+
+        for (int i = 0; i < n; i++) {
+            students[i].display();
+        }
+
+        sc.close();
     }
 }
